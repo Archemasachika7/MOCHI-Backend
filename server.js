@@ -14,7 +14,7 @@ io.on('connection', (socket) => {
   // Create or join a room
   socket.on('joinRoom', (roomId) => {
     if (!rooms[roomId]) {
-      rooms[roomId] = { players: [], board: Array(5).fill().map(() => Array(5).fill(''), currentPlayer: 'A' };
+      rooms[roomId] = { players: [], board: Array(5).fill().map(() => Array(5).fill('')), currentPlayer: 'A' };
     }
 
     if (rooms[roomId].players.length < 2) {
@@ -35,7 +35,7 @@ io.on('connection', (socket) => {
   // Handle player moves
   socket.on('makeMove', (roomId, row, col) => {
     const room = rooms[roomId];
-    if (room && room.players.includes(socket.id)) { // Fixed syntax error here
+    if (room && room.players.includes(socket.id)) {
       if (room.board[row][col] === '' && room.currentPlayer === (room.players[0] === socket.id ? 'A' : 'S')) {
         room.board[row][col] = room.currentPlayer;
         room.currentPlayer = room.currentPlayer === 'A' ? 'S' : 'A';
